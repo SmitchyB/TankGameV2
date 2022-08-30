@@ -8,6 +8,12 @@ public class PlayerController : Controller
     public KeyCode backward;
     public KeyCode clockwise;
     public KeyCode counterClockwise;
+    public KeyCode shootKey;
+
+    public bool isMoving;
+
+    public float volumeDistance;
+    public float movingVolumeDistance;
 
     public override void Start()
     {
@@ -36,21 +42,35 @@ public class PlayerController : Controller
         if (Input.GetKey(forward))
         {
             pawn.MoveForward();
+            isMoving = true;
         }
         if (Input.GetKey(backward))
         {
             pawn.MoveBackward();
+            isMoving = true;
         }
         if (Input.GetKey(clockwise))
         {
             pawn.RotateClockwise();
+            isMoving = true;
         }
         if (Input.GetKey(counterClockwise))
         {
             pawn.RotateCounterClockwise();
+            isMoving = true;
+        }
+        if (!Input.GetKey(forward) && !Input.GetKey(backward) && !Input.GetKey(clockwise) && !Input.GetKey(counterClockwise))
+        {
+            isMoving = false;
+        }
+
+        if (Input.GetKeyDown(shootKey))
+        {
+            pawn.Shoot();
+          
+        
         }
     }
-
     public override void OnDestroy()
     {
         //if we have a game manager
@@ -65,3 +85,5 @@ public class PlayerController : Controller
         }
     }
 }
+
+    

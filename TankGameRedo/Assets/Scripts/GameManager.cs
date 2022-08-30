@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     //Creating the lists for the controllers, player controllers, and pawns
     public List<Controller> controllers = new List<Controller>();
     public List<PlayerController> playerControllers = new List<PlayerController>();
+    public List<AIController> aIControllers = new List<AIController>();
     public List<Pawn> pawns = new List<Pawn>();
 
     private void Awake()

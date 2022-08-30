@@ -49,3 +49,7 @@ MonoBehaviour:
   backward: 115
   clockwise: 100
   counterClockwise: 97
+  shootKey: 323
+  isMoving: 0
+  volumeDistance: 2
+  movingVolumeDistance: 2
