@@ -4,10 +4,15 @@ using UnityEngine;
 
 public abstract class Pawn : MonoBehaviour
 {
+    public PlayerController controller;
+   
     public Mover mover;
     public Shooter shooter;
     // Variable for move speed
     public float moveSpeed;
+    private float speedBoostDuration;
+    private float tmpSpeed;
+    private bool speedBoostAdded;
     // Variable for turn speed
     public float turnSpeed;
 
@@ -20,6 +25,7 @@ public abstract class Pawn : MonoBehaviour
     public float shellLifespan;
 
     public float fireRate;
+    private int score;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -37,11 +43,20 @@ public abstract class Pawn : MonoBehaviour
         //gets the mover class
         mover = GetComponent<Mover>();
         shooter = GetComponent<Shooter>();
+        tmpSpeed = moveSpeed;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+        if (speedBoostAdded)
+        {
+            if (Time.time > speedBoostDuration)
+            {
+                moveSpeed = tmpSpeed;
+                speedBoostAdded = false;
+            }
+        }
     }
 
     public void OnDestroy()
@@ -56,6 +71,21 @@ public abstract class Pawn : MonoBehaviour
                 GameManager.instance.pawns.Remove(this);
             }
         }
+    }
+    public void setSpeedBoost(bool speedBoost, float duration, float speedToAdd)
+    {
+        speedBoostAdded = speedBoost;
+        speedBoostDuration = Time.time + duration;
+        moveSpeed += speedToAdd;
+    }
+    public void addScore()
+    {
+        score++;
+    }
+
+    public int getScore()
+    {
+        return score;
     }
 
     public abstract void MoveForward();
